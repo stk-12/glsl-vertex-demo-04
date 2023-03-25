@@ -1,6 +1,7 @@
 import '../css/style.scss'
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as dat from 'lil-gui';
 import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
@@ -24,9 +25,14 @@ class Main {
     this.material = null;
     this.mesh = null;
 
+    this.gui = new dat.GUI();
+
     this.uniforms = {
       uTime: {
         value: 0.0
+      },
+      uSpeed: {
+        value: 1.0
       },
     };
 
@@ -58,6 +64,17 @@ class Main {
   _setControlls() {
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.enableDamping = true;
+  }
+
+  _setGui() {
+    // this.gui.add(this.uniforms.uWave, "value").min(0).max(60).step(0.1).name('ノイズの高さ');
+    // this.gui.add(this.uniforms.uFrequency, "value").min(0.01).max(0.1).step(0.01).name('ノイズの粒度');
+    this.gui.add(this.uniforms.uSpeed, 'value').min(0.001).max(10.0).step(0.001).name('速度')
+    // this.gui.addColor(this.uniforms.uColor1, 'value').name('Color 1').listen()
+    // this.gui.addColor(this.uniforms.uColor2, 'value').name('Color 2').listen()
+    // this.gui.add(this.uniforms.uFrequency.value, "x").min(0).max(30).step(0.1).name('FrequencyX');
+    // this.gui.add(this.uniforms.uFrequency.value, "y").min(0).max(30).step(0.1).name('FrequencyY');
+    // this.gui.add(this.uniforms.uFrequency.value, "z").min(0).max(30).step(0.1).name('FrequencyZ');
   }
 
   _setLight() {
@@ -93,6 +110,8 @@ class Main {
 
     this._update();
     this._addEvent();
+
+    this._setGui();
   }
 
   _update() {

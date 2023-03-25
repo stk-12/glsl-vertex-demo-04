@@ -19,7 +19,17 @@ void main() {
 
   // vec3 color = vec3(BLUE.r + distortion, BLUE.g + distortion, BLUE.b + distortion);
 
-  vec3 color = vec3(BLUE + vRotation);
+  // vec3 color = vec3(BLUE + vRotation * 0.5 + distortion);
+  // vec3 color = vec3(
+  //   BLUE.r + vRotation.x + distortion,
+  //   BLUE.g + vRotation.y + distortion,
+  //   BLUE.b + vRotation.z + distortion
+  // );
+  vec3 color = vec3(
+    BLUE.r + vRotation.x,
+    BLUE.g + vRotation.x,
+    BLUE.b + vRotation.x
+  );
 
   gl_FragColor = vec4(color, 1.0);
 }
