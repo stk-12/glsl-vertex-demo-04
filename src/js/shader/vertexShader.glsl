@@ -1,6 +1,8 @@
 varying vec2 vUv;
 uniform float uTime;
 uniform float uSpeed;
+uniform float uWave;
+uniform float uFrequency;
 
 varying vec3 vNormal;
 varying float vDistortion;
@@ -24,7 +26,7 @@ void main() {
   vDistortion = distortion * 0.1;
 
 
-  vec3 rotation = rotateY(pos, (uv.y * 2.0 + uTime * uSpeed) * 20.0) * 0.05;
+  vec3 rotation = rotateY(pos, (uv.y * 2.0 + uTime * uSpeed) * uFrequency) * uWave;
   pos = pos + (normal + rotation);
 
   vRotation = rotation * 0.01;
